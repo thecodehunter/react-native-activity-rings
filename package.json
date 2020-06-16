@@ -1,0 +1,27 @@
+{
+  "name": "react-native-activity-rings",
+  "version": "1.0.0",
+  "description": "Activity Rings for React Native, compatible with Expo SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecodehunter/react-native-activity-rings.git"
+  },
+  "author": "martin@sagas.tech",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "> 16.7.0",
+    "react-native": ">= 0.50.0"
+  },
+  "dependencies": {
+    "react-native-svg": "^12.1.0",
+    "paths-js": "^0.4.10"
+  },
+  "bugs": {
+    "url": "https://github.com/thecodehunter/react-native-activity-rings/issues"
+  },
+  "homepage": "https://github.com/thecodehunter/react-native-activity-rings#readme"
+}
