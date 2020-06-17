@@ -1,10 +1,10 @@
-# React Native Activity Rings & Chart
+# React Native Activity Rings & Progress Chart
 
 ![Screenshot](./docs/screenshot.png?raw=true "Activity Rings")  
 
-Activity Rings is the perfect Progress Chart for your project.
+***Activity Rings is also the perfect Progress Chart for your project.***
 
-This library provides Ring visualization of data, used alongside with the ActivityRingsLegend component this will be the perfect Progress Chart solution too.
+This library provides Ring visualization of data and can be used alongside with the ActivityRingsLegend component for chart representation.
 
 ---  
 
@@ -22,17 +22,21 @@ import ActivityRings, {ActivityRingData, ActivityRingsConfig} from "react-native
 const Example = () => {
 
  const activityData: ActivityRingData[] = [ 
-     { value: 0.3 }, 
-     { value: 0.6 }, 
-     { value: 0.8 }
+   { value: 0.3 }, 
+   { value: 0.6 }, 
+   { value: 0.8 }
  ];
  const activityConfig: ActivityRingsConfig = { 
-     width: 150,  
-     height: 150,  
-     radius: 32,  
-     ringSize: 14,  
+   width: 150,  
+   height: 150,  
+   radius: 32,  
+   ringSize: 14,  
  }  
- return ( <View> <ActivityRings data={activityData} config={activityConfig} /> </View> );  
+ return (
+  <View> 
+    <ActivityRings data={activityData} config={activityConfig} /> 
+  </View> 
+  );  
 }  
 ```
 
@@ -57,20 +61,20 @@ const Example = () => {
 Define an array of objects with the data for each ring:
 
 ```typescript
-  const activityData: ActivityRingData[] = [
-    {
-        value: 0.3, // ring will use color from theme
-    },
-    {
-        value: 0.6,
-        color: "#cb5f18",
-    },
-    {
-        value: 0.8,
-        color: "#86040f",
-        backgroundColor: "#cccccc"
-    }
-  ];
+const activityData: ActivityRingData[] = [
+  {
+    value: 0.3, // ring will use color from theme
+  },
+  {
+    value: 0.6,
+    color: "#cb5f18",
+  },
+  {
+    value: 0.8,
+    color: "#86040f",
+    backgroundColor: "#cccccc"
+  }
+];
 ```
 
 | Property         | Type   | Description                                                                                                                                           |
@@ -85,12 +89,12 @@ Define an array of objects with the data for each ring:
 Object with config options for the rings:
 
 ```typescript
-  const activityConfig: ActivityRingsConfig = {
-      width: 150,
-      height: 150,
-      radius: 32,
-      ringSize: 14,
-  }
+const activityConfig: ActivityRingsConfig = {
+  width: 150,
+  height: 150,
+  radius: 32,
+  ringSize: 14,
+}
 ```
 
 | Property | Type   | Description                                |
