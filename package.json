@@ -1,6 +1,6 @@
 {
   "name": "react-native-activity-rings",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Activity Rings for React Native, compatible with Expo SDK",
   "main": "index.ts",
   "scripts": {
