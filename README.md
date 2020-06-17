@@ -42,21 +42,6 @@ const Example = () => {
 ```
 
 
-## Features
-
-- Typescript support.
-
-- Lightweight.
-
-- Support for multiple rings.
-
-- Themes, dark and light.
-
-- Customize ring color, size and background to fit your needs.
-
-- Customize size and position, wrap it inside a View container and use it anywhere.
-
-
 ## Activity Data
 
 Define an array of objects with the data for each ring:
@@ -123,4 +108,4 @@ By default this components comes with `Dark` theme and will work best of course 
 
 ## Coming soon
 
-Visualize more than 100 percentage on a ring is a valuable feature for specific use cases like Apple does on the smart watch. Stay tuned!
+Visualize more than 100 percentage on a ring is a valuable feature for specific use cases like the Apple Watch. Stay tuned!
