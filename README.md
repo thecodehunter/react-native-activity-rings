@@ -1,6 +1,6 @@
 # React Native Activity Rings
 
-This library is also compatible with Expo SDK and provides an activity ring visualization of data, used alongside with the ActivityRingsLegend component this will be a perfect solution for a 3 ring chart or progress chart.
+This library is compatible with Expo SDK and provides an activity ring visualization of data, used alongside with the ActivityRingsLegend component this will be a neat solution for a 3 ring chart or progress chart.
 
 ---
 
@@ -19,18 +19,18 @@ const Example = () => {
 
   const activityData: ActivityRingsData[] = [
       {
-        value: 0.8
-      },
-      {
-        value: 0.4
+        value: 0.3
       },
       {
         value: 0.6
+      },
+      {
+        value: 0.8
       }
   ];
 
   const activityConfig: ActivityRingsConfig = {
-      width: 200,
+      width: 150,
       height: 150,
       radius: 32,
       ringSize: 14,
@@ -44,5 +44,3 @@ const Example = () => {
 
 }
 ```
-
-
