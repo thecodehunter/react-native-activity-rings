@@ -1,6 +1,5 @@
-# React Native Activity Rings & Progress Chart
-
 ![Screenshot](./docs/screenshot.png?raw=true "Activity Rings")  
+
 
 ***Activity Rings is also the perfect Progress Chart for your project.***
 
