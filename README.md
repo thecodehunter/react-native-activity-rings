@@ -31,12 +31,13 @@ const Example = () => {
    height: 150,  
    radius: 32,  
    ringSize: 14,  
- }  
+ };
+
  return (
-  <View> 
+  <View>
     <ActivityRings data={activityData} config={activityConfig} /> 
-  </View> 
-  );  
+  </View>
+  );
 }  
 ```
 
@@ -49,7 +50,7 @@ const Example = () => {
 
 - Support for multiple rings.
 
-- Themes.
+- Themes, dark and light.
 
 - Customize ring color, size and background to fit your needs.
 
@@ -122,4 +123,4 @@ By default this components comes with `Dark` theme and will work best of course 
 
 ## Coming soon
 
-Being able to visualize more than 100% percentage on a ring is a valuable feature for specific use cases like Apple does on the smart watch. Stay tunned!
+Visualize more than 100 percentage on a ring is a valuable feature for specific use cases like Apple does on the smart watch. Stay tuned!
