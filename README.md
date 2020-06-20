@@ -5,8 +5,9 @@
 
 
 A library that provides customizable ring visualization of data, and you can also enable legends for chart representation.
-
-![Screenshot](./docs/screenshot.png?raw=true "Activity Rings")  
+<p align="center">
+![Screenshot](./docs/screenshot.png?raw=true "Activity Rings")
+</p>  
 
 
 ---  
