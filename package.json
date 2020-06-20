@@ -1,6 +1,6 @@
 {
   "name": "react-native-activity-rings",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Activity Rings & Progress Chart for React Native.",
   "main": "dist/index.js",
   "files": [
