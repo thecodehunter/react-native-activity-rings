@@ -15,21 +15,20 @@ yarn add react-native-activity-rings
 
 ## Example
 
-```typescript
-import ActivityRings, {ActivityRingData, ActivityRingsConfig} from "react-native-activity-rings";  
+```javascript
+import ActivityRings from "react-native-activity-rings";  
 
-const Example = () => {
+const BasicExample = () => {
 
- const activityData: ActivityRingData[] = [ 
-   { value: 0.3 }, 
+ const activityData = [ 
+   { value: 0.8 }, 
    { value: 0.6 }, 
-   { value: 0.8 }
+   { value: 0.2 }
  ];
- const activityConfig: ActivityRingsConfig = { 
+
+ const activityConfig = { 
    width: 150,  
-   height: 150,  
-   radius: 32,  
-   ringSize: 14,  
+   height: 150
  };
 
  return (
@@ -45,8 +44,8 @@ const Example = () => {
 
 Define an array of objects with the data for each ring:
 
-```typescript
-const activityData: ActivityRingData[] = [
+```javascript
+const activityData = [
   {
     value: 0.8, // ring will use color from theme
   },
@@ -74,10 +73,10 @@ const activityData: ActivityRingData[] = [
 
 ## Configuration
 
-Object with config options for the rings:
+Config options for the ring pie:
 
-```typescript
-const activityConfig: ActivityRingsConfig = {
+```javascript
+const activityConfig = {
   width: 150,
   height: 150,
   radius: 32,
@@ -89,8 +88,8 @@ const activityConfig: ActivityRingsConfig = {
 | -------- | ------ | ------------------------------------------ |
 | width    | Number | The width of the activity ring component.  |
 | height   | Number | The height of the activity ring component. |
-| radius   | Number | Defines the radius of the complete pie.    |
-| ringSize | Number | Defines the size of each ring in px.       |
+| radius?  | Number | Defines the radius of the complete pie.    |
+| ringSize?| Number | Defines the size of each ring in px.       |
 
 ## Legend
 Legend is disabled by default.

@@ -2,11 +2,16 @@
   "name": "react-native-activity-rings",
   "version": "1.0.3",
   "description": "Activity Rings & Progress Chart for React Native.",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
+    "dev": "tsc --watch",
     "build": "tsc",
     "prepare": "tsc && echo 'Finished building NPM package'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "./node_modules/.bin/prettier --write"
   },
   "repository": {
     "type": "git",
@@ -27,10 +32,23 @@
     "@types/node": "14.0.13",
     "@types/react": "^16.9.36",
     "@types/react-native": "~0.61.23",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-native": "0.61.5",
     "typescript": "^3.9.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,css}": [
+      "yarn prettier"
+    ]
   },
   "bugs": {
     "url": "https://github.com/thecodehunter/react-native-activity-rings/issues"
