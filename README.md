@@ -1,9 +1,13 @@
+
+
+[![npm version](https://badge.fury.io/js/react-native-activity-rings.svg)](https://badge.fury.io/js/react-native-activity-rings)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+
+A library that provides customizable ring visualization of data, and you can also enable legends for chart representation.
+
 ![Screenshot](./docs/screenshot.png?raw=true "Activity Rings")  
 
-
-***Activity Rings is also the perfect Progress Chart for your project.***
-
-This library provides Ring visualization of data, and you can also enable legends for chart representation.
 
 ---  
 
