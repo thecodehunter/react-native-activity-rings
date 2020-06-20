@@ -8,4 +8,4 @@ dist
 
 npm-debug.*
 yarn-error.*
-package.lock
+package-lock.json
