@@ -1,38 +1,10 @@
 import * as React from "react";
-import { View } from "react-native";
+import {StyleSheet, View} from "react-native";
 import { Svg, G, Path } from "react-native-svg";
+import {Theme, THEMES} from "./Themes";
+import ActivityLegend from "./ActivityRingsLegend";
 
 const Pie = require("paths-js/pie");
-
-enum Colors {
-    White = "#ffffff",
-    Gray = "#323232",
-    // Light Theme
-    Green = "#50eba9",
-    Red = "#E02020",
-    Canary = "#FAEB3F",
-    // Dark Theme
-    Move = "#54f0f7",
-    Exercise = "#c1ff00",
-    Stand = "#ef135f"
-}
-type Theme = "dark" | "light";
-
-interface ThemeColors {
-    LegendColor: string;
-    RingColors: string[];
-}
-
-const THEMES: { dark: ThemeColors, light: ThemeColors } = {
-    dark: {
-        LegendColor: Colors.White,
-        RingColors: [Colors.Move, Colors.Exercise, Colors.Stand]
-    },
-    light: {
-        LegendColor: Colors.Gray,
-        RingColors: [Colors.Red, Colors.Canary, Colors.Green]
-    }
-}
 
 type Pie = { // pie-js does not support TS
     curves: any[];
@@ -40,6 +12,7 @@ type Pie = { // pie-js does not support TS
 
 export type ActivityRingData = {
     value: number;
+    label?: string;
     color?: string;
     backgroundColor?: string;
 }
@@ -53,9 +26,10 @@ export type ActivityRingsConfig = {
 
 
 interface ActivityRingsProps {
-  data: ActivityRingData[];
-  config: ActivityRingsConfig;
-  theme?: Theme;
+    data: ActivityRingData[];
+    config: ActivityRingsConfig;
+    legend?: boolean;
+    theme?: Theme;
 }
 
 const ActivityRingsBase = (props: ActivityRingsProps) => {
@@ -69,7 +43,7 @@ const ActivityRingsBase = (props: ActivityRingsProps) => {
     const createRings = (data: ActivityRingData[], height: number, rad: number, fill?: number[]) => {
         return data.map((ring: ActivityRingData, idx: number) => {
             const pieData = fill || [ring.value, 1 - ring.value];
-            const r = ((height / 2 - rad) / data.length) * idx + rad;
+            const r = ((height / 2 - rad) / data.length) * (data.length - idx - 1) + rad;
             return Pie({
                 r,
                 R: r,
@@ -80,52 +54,68 @@ const ActivityRingsBase = (props: ActivityRingsProps) => {
         });
     };
 
-    const RingsDrawer = (props: { rings: Pie[], alpha: string }) => (
-        <G>
-            {props.rings.map((ring: Pie, idx: number) => {
-                const dataObj = data[idx];
-                if (dataObj.value > 0 && dataObj.value <= 1) {
-                    return (
-                        <Path
-                            key={`r_${idx}`}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d={ring.curves[0].sector.path.print()}
-                            stroke={`${dataObj.color || selectedTheme.RingColors[idx]}${props.alpha}`}
-                            strokeWidth={config.ringSize}
-                        />
-                    );
-                }
-            })}
-        </G>
-    );
+    const Rings = (props: { data: Pie[], opacity: boolean }) => {
+        const alpha = props.opacity ? "33" : "FF";
+        const rings = props.data;
+        return (
+            <G>
+                {rings.map((ring: Pie, idx: number) => {
+                    const dataObj = data[idx];
+                    const color = props.opacity ? dataObj.backgroundColor : dataObj.color;
+                    const ringColor = color || selectedTheme.RingColors[idx];
+                    if (dataObj.value > 0 && dataObj.value <= 1) {
+                        return (
+                            <Path
+                                key={`r_${idx}`}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d={ring.curves[0].sector.path.print()}
+                                stroke={`${ringColor}${alpha}`}
+                                strokeWidth={config.ringSize}
+                            />
+                        );
+                    }
+                })}
+            </G>);
+    };
 
-    const frontRings = createRings(data, config.height, config.radius);
     const backRings = createRings(data,  config.height, config.radius,[0.999, 0.001]);
+    const frontRings = createRings(data, config.height, config.radius);
 
     return (
-      <View style={containerStyle}>
-        <Svg width={config.width} height={config.height}>
-          <G x={config.width / 2} y={config.height / 2}>
-              <RingsDrawer rings={frontRings} alpha={"FF"} />
-              <RingsDrawer rings={backRings} alpha={"33"} />
-          </G>
-        </Svg>
-      </View>
+        <View style={styles.container}>
+            <View style={containerStyle}>
+                <Svg width={config.width} height={config.height}>
+                    <G x={config.width / 2} y={config.height / 2}>
+                        <Rings data={backRings} opacity={true} />
+                        <Rings data={frontRings} opacity={false} />
+                    </G>
+                </Svg>
+            </View>
+            {props.legend && <ActivityLegend data={props.data} theme={theme} />}
+        </View>
     );
 }
 
 ActivityRingsBase.defaultProps = {
-  data: [],
-  theme: "dark",
-  config: {
-    ringSize: 14,
-    radius: 32,
-    width: 150,
-    height: 150
-  }
+    data: [],
+    theme: "dark",
+    legend: false,
+    config: {
+        ringSize: 14,
+        radius: 32,
+        width: 150,
+        height: 150
+    }
 };
 
-const ActivityRings = React.memo(ActivityRingsBase);
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center"
+    }
+});
 
+const ActivityRings = React.memo(ActivityRingsBase);
 export default ActivityRings;

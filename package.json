@@ -1,7 +1,7 @@
 {
   "name": "react-native-activity-rings",
-  "version": "1.0.2",
-  "description": "Activity Rings for React Native, compatible with Expo SDK",
+  "version": "1.0.3",
+  "description": "Activity Rings & Progressive Chart for React Native.",
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
