@@ -5,32 +5,26 @@ import { View, Text, StyleSheet } from "react-native";
 
 interface ActivityLegendsProps {
   data: ActivityRingsData;
-  title?: string;
   theme?: Theme;
 }
 
-const ActivityLegendBase = ({ data, title, theme }: ActivityLegendsProps) => {
+const ActivityLegendBase = ({ data, theme }: ActivityLegendsProps) => {
   const selectedTheme = THEMES[theme || "dark"];
   const textStyle = {
     ...styles.text,
     color: selectedTheme.LegendColorPercentage
   };
-  const labelStyle = { color: selectedTheme.LegendColor };
   return (
     <View style={styles.container}>
-      <Text style={textStyle}>{title}</Text>
       {data.map((ring: ActivityRingData, idx: number) => {
         const bulletColor = ring.color || selectedTheme.RingColors[idx];
         const bulletStyle = { ...styles.bullets, backgroundColor: bulletColor };
         return (
           <View style={styles.row} key={`l_${idx}`}>
             <View style={bulletStyle}></View>
-            {ring.label && (
-              <Text style={textStyle}>
-                {`${Math.round(ring.value * 100)}% `}
-                <Text style={labelStyle}>{ring.label}</Text>
-              </Text>
-            )}
+            <Text style={textStyle}>
+              {Math.round(ring.value * 100)}% {ring.label}
+            </Text>
           </View>
         );
       })}
@@ -43,6 +37,8 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   row: {
+    display: "flex",
+    flexDirection: "row",
     alignItems: "center"
   },
   bullets: {

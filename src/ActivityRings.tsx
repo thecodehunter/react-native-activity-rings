@@ -26,7 +26,6 @@ type ActivityRingsProps = {
   data: ActivityRingData[];
   config: ActivityRingsConfig;
   legend?: boolean;
-  legendTitle?: string;
   theme?: Theme;
 };
 
@@ -37,7 +36,7 @@ const defaultCfg: ActivityRingsConfig = {
   radius: 32
 };
 
-const ActivityRingsBase = ({ data, config, theme, legend, legendTitle }: ActivityRingsProps) => {
+const ActivityRingsBase = ({ data, config, theme, legend }: ActivityRingsProps) => {
   const cfg: ActivityRingsConfig = { ...defaultCfg, ...config };
   const backPie = PieFactory.create(data, cfg.height, cfg.radius, [0.999, 0.001]);
   const frontPie = PieFactory.create(data, cfg.height, cfg.radius);
@@ -53,7 +52,7 @@ const ActivityRingsBase = ({ data, config, theme, legend, legendTitle }: Activit
           </G>
         </Svg>
       </View>
-      {legend && <ActivityLegend title={legendTitle} data={data} theme={theme} />}
+      {legend && <ActivityLegend data={data} theme={theme} />}
     </View>
   );
 };
@@ -66,7 +65,9 @@ ActivityRingsBase.defaultProps = {
 
 const styles = StyleSheet.create({
   layout: {
-    alignItems: "center"
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
