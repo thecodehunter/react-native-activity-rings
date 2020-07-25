@@ -1,5 +1,5 @@
-import ActivityRings, { ActivityRingsConfig, ActivityRingData } from "./src/ActivityRings";
+import ActivityRings, { ActivityRingsConfig, ActivityRingData, ActivityRingsData } from "./src/ActivityRings";
 
-export { ActivityRings, ActivityRingsConfig, ActivityRingData };
+export { ActivityRings, ActivityRingsConfig, ActivityRingData, ActivityRingsData };
 
 export default ActivityRings;

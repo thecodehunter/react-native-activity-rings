@@ -1,15 +1,12 @@
 import * as React from "react";
-import { StyleSheet, View } from "react-native";
-import { Svg, G, Path } from "react-native-svg";
 import { Theme, THEMES } from "./Themes";
 import ActivityLegend from "./ActivityRingsLegend";
+import Rings from "./Rings";
+import PieFactory from "./PieFactory";
+import { Svg, G } from "react-native-svg";
+import { View, StyleSheet } from "react-native";
 
-const Pie = require("paths-js/pie");
-
-type Pie = {
-  // pie-js does not support TS
-  curves: any[];
-};
+export type ActivityRingsData = ActivityRingData[];
 
 export type ActivityRingData = {
   value: number;
@@ -25,80 +22,38 @@ export type ActivityRingsConfig = {
   ringSize?: number;
 };
 
-interface ActivityRingsProps {
+type ActivityRingsProps = {
   data: ActivityRingData[];
   config: ActivityRingsConfig;
   legend?: boolean;
+  legendTitle?: string;
   theme?: Theme;
-}
+};
 
-const defaultConfig: ActivityRingsConfig = { width: 150, height: 150, ringSize: 14, radius: 32 };
+const defaultCfg: ActivityRingsConfig = {
+  width: 150,
+  height: 150,
+  ringSize: 14,
+  radius: 32
+};
 
-const ActivityRingsBase = (props: ActivityRingsProps) => {
-  const { data, theme } = props;
-  const config = { ...defaultConfig, ...props.config };
+const ActivityRingsBase = ({ data, config, theme, legend, legendTitle }: ActivityRingsProps) => {
+  const cfg: ActivityRingsConfig = { ...defaultCfg, ...config };
+  const backPie = PieFactory.create(data, cfg.height, cfg.radius, [0.999, 0.001]);
+  const frontPie = PieFactory.create(data, cfg.height, cfg.radius);
   const selectedTheme = THEMES[theme || "dark"];
-  const containerStyle = {
-    width: config.width,
-    height: config.height
-  };
-
-  const createRings = (data: ActivityRingData[], height: number, rad: number, fill?: number[]) => {
-    return data.map((ring: ActivityRingData, idx: number) => {
-      const pieData = fill || [ring.value, 1 - ring.value];
-      const r = ((height / 2 - rad) / data.length) * (data.length - idx - 1) + rad;
-      return Pie({
-        r,
-        R: r,
-        data: pieData,
-        center: [0, 0],
-        accessor(x: any) {
-          return x;
-        }
-      });
-    });
-  };
-
-  const Rings = (props: { data: Pie[]; opacity: boolean }) => {
-    const alpha = props.opacity ? "33" : "";
-    const rings = props.data;
-    return (
-      <G>
-        {rings.map((ring: Pie, idx: number) => {
-          const dataObj = data[idx];
-          const color = props.opacity ? dataObj.backgroundColor : dataObj.color;
-          const ringColor = color || selectedTheme.RingColors[idx];
-          if (dataObj.value > 0 && dataObj.value <= 1) {
-            return (
-              <Path
-                key={`r_${idx}`}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={ring.curves[0].sector.path.print()}
-                stroke={`${ringColor}${alpha}`}
-                strokeWidth={config.ringSize}
-              />
-            );
-          }
-        })}
-      </G>
-    );
-  };
-
-  const backRings = createRings(data, config.height, config.radius, [0.999, 0.001]);
-  const frontRings = createRings(data, config.height, config.radius);
 
   return (
-    <View style={styles.container}>
-      <View style={containerStyle}>
-        <Svg width={config.width} height={config.height}>
-          <G x={config.width / 2} y={config.height / 2}>
-            <Rings data={backRings} opacity={true} />
-            <Rings data={frontRings} opacity={false} />
+    <View style={styles.layout}>
+      <View style={{ width: cfg.width, height: cfg.height }}>
+        <Svg width={cfg.width} height={cfg.height}>
+          <G x={cfg.width / 2} y={cfg.height / 2}>
+            <Rings size={cfg.ringSize} pie={backPie} data={data} theme={selectedTheme} opacity={true} />
+            <Rings size={cfg.ringSize} pie={frontPie} data={data} theme={selectedTheme} opacity={false} />
           </G>
         </Svg>
       </View>
-      {props.legend && <ActivityLegend data={props.data} theme={theme} />}
+      {legend && <ActivityLegend title={legendTitle} data={data} theme={theme} />}
     </View>
   );
 };
@@ -110,10 +65,8 @@ ActivityRingsBase.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
+  layout: {
+    alignItems: "center"
   }
 });
 
